@@ -21,6 +21,7 @@ test('manifesto restringe rede e permissões ao necessário', async () => {
   assert.deepEqual(manifest.host_permissions, ['https://viacep.com.br/*']);
   assert.match(manifest.content_security_policy.extension_pages, /connect-src https:\/\/viacep\.com\.br/);
   assert.equal('content_scripts' in manifest, false);
+  assert.equal(manifest.action.default_icon['128'], 'icons/chemical-process.png');
 });
 
 test('pacote não referencia outros recursos HTTP externos', async () => {
@@ -43,4 +44,6 @@ test('interface contém seções, campos novos e ações de regeneração', asyn
   assert.match(script, /Referencia/);
   assert.match(script, /RelatoDano/);
   assert.match(script, /navigator\.clipboard\.writeText/);
+  assert.doesNotMatch(script, /chrome\.scripting\.executeScript/);
+  assert.equal((html.match(/data-copy-section=/g) ?? []).length, 5);
 });

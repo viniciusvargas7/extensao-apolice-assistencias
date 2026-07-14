@@ -1,6 +1,6 @@
 # Gerador de Apólices QA
 
-Extensão privada para Chrome que gera dados fictícios de apólices. Ela abre em um painel lateral, permite regenerar grupos de dados separadamente e copiar cada valor com um clique.
+Extensão privada para Chrome que gera dados fictícios de apólices. Ela abre em um painel lateral azul, permite regenerar grupos separadamente e copiar valores individualmente ou por seção.
 
 ## Instalação local
 
@@ -29,10 +29,14 @@ Compartilhe o arquivo `dist/gerador-apolices-qa.zip`. Quem receber deve seguir a
 - Não possui analytics, armazenamento ou código remoto.
 - A única conexão permitida é uma consulta HTTPS ao `viacep.com.br` ao gerar um endereço.
 - A consulta envia somente UF, cidade e um fragmento de logradouro previamente incluídos no pacote.
-- Se o ViaCEP estiver indisponível ou demorar mais de cinco segundos, um endereço do catálogo local é usado.
+- Toda regeneração de endereço tenta primeiro o ViaCEP. Se o serviço estiver indisponível ou demorar mais de cinco segundos, um endereço do catálogo local é usado.
 - Número do imóvel e ponto de referência são plausíveis, não confirmados pela API.
 
-O selo na seção **Endereço** informa se o resultado veio do ViaCEP ou do catálogo offline.
+Uma bolinha verde na seção **Endereço** indica uma resposta online do ViaCEP; a bolinha vermelha indica uso do catálogo offline.
+
+## Cópia dos dados
+
+O botão **⧉** copia um campo individual. O botão **Copiar seção** copia todos os campos daquele grupo no formato `Rótulo: valor`, um por linha.
 
 ## Desenvolvimento e testes
 
@@ -43,7 +47,7 @@ npm test
 npm run check
 ```
 
-Os testes cobrem validação de CPF, contatos, placas, chassi, coerência veicular, tamanho do relato, catálogo de endereços, respostas e falhas do ViaCEP, timeout, cache e restrições de segurança do manifesto.
+Os testes cobrem validação de CPF, contatos, placas, chassi, coerência veicular, tamanho do relato, catálogo de endereços, respostas e falhas do ViaCEP, timeout, interface e restrições de segurança do manifesto.
 
 ## Estrutura
 

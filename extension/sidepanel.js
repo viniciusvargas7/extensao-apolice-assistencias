@@ -48,13 +48,24 @@ function renderAllSyncSections() {
   for (const section of ['policy', 'insured', 'vehicle', 'claim']) renderSection(section);
 }
 
-async function copyValue(label, value) {
+async function copyText(text, successMessage) {
   try {
-    await navigator.clipboard.writeText(String(value ?? ''));
-    showToast(`${label} copiado.`);
+    await navigator.clipboard.writeText(text);
+    showToast(successMessage);
   } catch {
-    showToast(`Não foi possível copiar ${label.toLowerCase()}.`);
+    showToast('Não foi possível copiar para a área de transferência.');
   }
+}
+
+async function copyValue(label, value) {
+  await copyText(String(value ?? ''), `${label} copiado.`);
+}
+
+export async function copySection(section) {
+  const content = FIELD_DEFINITIONS[section]
+    .map(([key, label]) => `${label}: ${state[section][key] ?? ''}`)
+    .join('\n');
+  await copyText(content, 'Seção copiada.');
 }
 
 function showToast(message) {
@@ -73,13 +84,20 @@ function setAddressLoading(loading) {
   allButton.disabled = loading;
   button.textContent = loading ? 'Consultando…' : 'Regenerar';
   main.setAttribute('aria-busy', String(loading));
+  if (loading) updateAddressStatus('loading');
 }
 
 function updateAddressStatus(source) {
   const status = document.querySelector('#address-status');
-  const offline = source === 'offline';
-  status.classList.toggle('offline', offline);
-  status.textContent = offline ? 'Modo offline · catálogo local' : 'Endereço consultado no ViaCEP';
+  const text = status.querySelector('.status-text');
+  status.classList.toggle('loading', source === 'loading');
+  status.classList.toggle('online', source === 'viacep');
+  status.classList.toggle('offline', source === 'offline');
+  text.textContent = source === 'loading'
+    ? 'Verificando conexão com o ViaCEP…'
+    : source === 'viacep'
+      ? 'Online · endereço do ViaCEP'
+      : 'Offline · catálogo local';
 }
 
 export async function regenerateAddress() {
@@ -121,6 +139,9 @@ export async function generateAll() {
 document.querySelector('#generate-all').addEventListener('click', generateAll);
 document.querySelectorAll('[data-refresh]').forEach((button) => {
   button.addEventListener('click', () => regenerateSection(button.dataset.refresh));
+});
+document.querySelectorAll('[data-copy-section]').forEach((button) => {
+  button.addEventListener('click', () => copySection(button.dataset.copySection));
 });
 
 generateAll();

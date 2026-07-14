@@ -1,14 +1,15 @@
 :root {
   color-scheme: light;
-  --ink: #17211d;
-  --muted: #68736e;
-  --paper: #f5f4ef;
-  --card: #fffefa;
-  --line: #d9ddd8;
-  --brand: #0b6b52;
-  --brand-dark: #07513e;
-  --accent: #d9f267;
-  --warning: #925d00;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --paper: #eff6ff;
+  --card: #ffffff;
+  --line: #cbd5e1;
+  --brand: #1d4ed8;
+  --brand-dark: #1e40af;
+  --accent: #bfdbfe;
+  --online: #15803d;
+  --offline: #b91c1c;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -18,7 +19,7 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at 100% 0, rgb(217 242 103 / 20%), transparent 240px),
+    radial-gradient(circle at 100% 0, rgb(96 165 250 / 24%), transparent 240px),
     var(--paper);
   color: var(--ink);
 }
@@ -34,7 +35,7 @@ button { font: inherit; }
   justify-content: space-between;
   gap: 16px;
   padding: 20px 18px 16px;
-  background: rgb(245 244 239 / 94%);
+  background: rgb(239 246 255 / 94%);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
 }
@@ -53,6 +54,7 @@ h2 { display: inline; margin: 0; font-size: 15px; }
 
 .primary-button,
 .refresh-button,
+.section-copy-button,
 .copy-button {
   border: 0;
   border-radius: 9px;
@@ -67,7 +69,7 @@ h2 { display: inline; margin: 0; font-size: 15px; }
   color: white;
   font-size: 13px;
   font-weight: 750;
-  box-shadow: 0 4px 14px rgb(11 107 82 / 18%);
+  box-shadow: 0 4px 14px rgb(29 78 216 / 18%);
 }
 
 .primary-button:hover { background: var(--brand-dark); transform: translateY(-1px); }
@@ -80,7 +82,7 @@ main { padding: 14px; }
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
-  box-shadow: 0 3px 18px rgb(23 33 29 / 4%);
+  box-shadow: 0 3px 18px rgb(15 23 42 / 6%);
 }
 
 .section-heading,
@@ -98,7 +100,7 @@ main { padding: 14px; }
   place-items: center;
   border-radius: 50%;
   background: var(--accent);
-  color: #354000;
+  color: var(--brand-dark);
   font-size: 10px;
   font-weight: 850;
 }
@@ -111,8 +113,20 @@ main { padding: 14px; }
   font-weight: 750;
 }
 
-.refresh-button:hover { background: #edf5f1; }
+.refresh-button:hover { background: #dbeafe; }
 .refresh-button:disabled { cursor: wait; opacity: .55; }
+
+.section-actions { display: flex; align-items: center; gap: 3px; }
+
+.section-copy-button {
+  padding: 6px 8px;
+  background: #dbeafe;
+  color: var(--brand-dark);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.section-copy-button:hover { background: var(--accent); }
 
 .fields { margin-top: 12px; }
 
@@ -147,8 +161,8 @@ main { padding: 14px; }
   font-size: 14px;
 }
 
-.copy-button:hover { background: var(--accent); color: #354000; }
-.copy-button:focus-visible, .refresh-button:focus-visible, .primary-button:focus-visible { outline: 3px solid #70bda9; outline-offset: 2px; }
+.copy-button:hover { background: var(--accent); color: var(--brand-dark); }
+.copy-button:focus-visible, .section-copy-button:focus-visible, .refresh-button:focus-visible, .primary-button:focus-visible { outline: 3px solid #60a5fa; outline-offset: 2px; }
 
 .source-line { margin: 9px 0 -3px 34px; }
 
@@ -157,13 +171,17 @@ main { padding: 14px; }
   align-items: center;
   padding: 4px 7px;
   border-radius: 999px;
-  background: #e8f4ef;
-  color: var(--brand);
+  background: #dbeafe;
+  color: var(--brand-dark);
   font-size: 10px;
   font-weight: 750;
 }
 
-.status-badge.offline { background: #fff1d7; color: var(--warning); }
+.status-dot { width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: #94a3b8; box-shadow: 0 0 0 2px rgb(148 163 184 / 18%); }
+.status-badge.online { background: #dcfce7; color: #166534; }
+.status-badge.online .status-dot { background: var(--online); box-shadow: 0 0 0 2px rgb(21 128 61 / 18%); }
+.status-badge.offline { background: #fee2e2; color: #991b1b; }
+.status-badge.offline .status-dot { background: var(--offline); box-shadow: 0 0 0 2px rgb(185 28 28 / 18%); }
 
 .toast {
   position: fixed;
@@ -173,7 +191,7 @@ main { padding: 14px; }
   left: 14px;
   padding: 11px 14px;
   border-radius: 10px;
-  background: #17211d;
+  background: #0f172a;
   color: white;
   font-size: 12px;
   box-shadow: 0 10px 30px rgb(0 0 0 / 22%);
@@ -183,6 +201,8 @@ main { padding: 14px; }
   .app-header { align-items: flex-start; flex-direction: column; }
   .primary-button { width: 100%; }
   .field-row { grid-template-columns: 72px minmax(0, 1fr) 31px; }
+  .section-heading { align-items: flex-start; }
+  .section-actions { align-items: flex-end; flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {

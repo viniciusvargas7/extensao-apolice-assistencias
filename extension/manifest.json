@@ -2,12 +2,24 @@
   "manifest_version": 3,
   "name": "Gerador de Apólices QA",
   "description": "Gera dados fictícios e coerentes de apólices para testes de qualidade.",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "minimum_chrome_version": "114",
   "permissions": ["sidePanel"],
   "host_permissions": ["https://viacep.com.br/*"],
   "action": {
-    "default_title": "Abrir gerador de apólices"
+    "default_title": "Abrir gerador de apólices",
+    "default_icon": {
+      "16": "icons/chemical-process.png",
+      "32": "icons/chemical-process.png",
+      "48": "icons/chemical-process.png",
+      "128": "icons/chemical-process.png"
+    }
+  },
+  "icons": {
+    "16": "icons/chemical-process.png",
+    "32": "icons/chemical-process.png",
+    "48": "icons/chemical-process.png",
+    "128": "icons/chemical-process.png"
   },
   "background": {
     "service_worker": "service-worker.js",

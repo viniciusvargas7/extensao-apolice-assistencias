@@ -17,7 +17,7 @@ test('higieniza e mapeia somente respostas completas', () => {
   assert.deepEqual(result[0], { cep: '01001000', street: 'Praça da Sé', district: 'Sé', city: 'São Paulo', state: 'SP' });
 });
 
-test('usa resultado válido do ViaCEP', async () => {
+test('consulta o ViaCEP em toda regeneração de endereço', async () => {
   let calls = 0;
   const service = new AddressService({
     rng: () => 0,
@@ -32,7 +32,7 @@ test('usa resultado válido do ViaCEP', async () => {
   assert.equal(result.source, 'viacep');
   assert.equal(result.Cep, '01001000');
   await service.generate();
-  assert.equal(calls, 1, 'consulta repetida deve usar cache em memória');
+  assert.equal(calls, 2, 'cada regeneração deve confirmar a conexão com o ViaCEP');
 });
 
 for (const scenario of [

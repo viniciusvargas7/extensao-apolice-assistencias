@@ -27,18 +27,12 @@ export class AddressService {
     this.fetchImpl = fetchImpl;
     this.timeoutMs = timeoutMs;
     this.rng = rng;
-    this.cache = new Map();
   }
 
   async generate() {
     const seed = pick(ADDRESS_SEARCH_SEEDS, this.rng);
-    const key = seed.join('|');
     try {
-      let candidates = this.cache.get(key);
-      if (!candidates) {
-        candidates = await this.#query(seed);
-        this.cache.set(key, candidates);
-      }
+      const candidates = await this.#query(seed);
       return addressFromRecord(pick(candidates, this.rng), 'viacep', this.rng);
     } catch {
       return addressFromRecord(pick(FALLBACK_ADDRESSES, this.rng), 'offline', this.rng);
