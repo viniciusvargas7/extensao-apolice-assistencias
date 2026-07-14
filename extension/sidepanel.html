@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Apólices QA</title>
+    <link rel="stylesheet" href="sidepanel.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Ferramenta de QA</p>
+        <h1>Gerador de apólices</h1>
+      </div>
+      <button class="primary-button" id="generate-all" type="button">Nova apólice</button>
+    </header>
+
+    <main id="sections" aria-busy="false">
+      <section class="data-section" data-section="policy">
+        <div class="section-heading">
+          <div><span class="section-number">01</span><h2>Apólice e corretor</h2></div>
+          <button class="refresh-button" data-refresh="policy" type="button" aria-label="Regenerar apólice e corretor">Regenerar</button>
+        </div>
+        <div class="fields" data-fields="policy"></div>
+      </section>
+
+      <section class="data-section" data-section="insured">
+        <div class="section-heading">
+          <div><span class="section-number">02</span><h2>Segurado e contato</h2></div>
+          <button class="refresh-button" data-refresh="insured" type="button" aria-label="Regenerar segurado e contato">Regenerar</button>
+        </div>
+        <div class="fields" data-fields="insured"></div>
+      </section>
+
+      <section class="data-section" data-section="address">
+        <div class="section-heading">
+          <div><span class="section-number">03</span><h2>Endereço</h2></div>
+          <button class="refresh-button" data-refresh="address" type="button" aria-label="Regenerar endereço">Regenerar</button>
+        </div>
+        <div class="source-line"><span id="address-status" class="status-badge">Consultando ViaCEP…</span></div>
+        <div class="fields" data-fields="address"></div>
+      </section>
+
+      <section class="data-section" data-section="vehicle">
+        <div class="section-heading">
+          <div><span class="section-number">04</span><h2>Veículo</h2></div>
+          <button class="refresh-button" data-refresh="vehicle" type="button" aria-label="Regenerar veículo">Regenerar</button>
+        </div>
+        <div class="fields" data-fields="vehicle"></div>
+      </section>
+
+      <section class="data-section" data-section="claim">
+        <div class="section-heading">
+          <div><span class="section-number">05</span><h2>Sinistro</h2></div>
+          <button class="refresh-button" data-refresh="claim" type="button" aria-label="Regenerar relato do sinistro">Regenerar</button>
+        </div>
+        <div class="fields" data-fields="claim"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="sidepanel.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "extensao-apolice-assistencias",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check extension/service-worker.js && node --check extension/sidepanel.js"
+  }
+}

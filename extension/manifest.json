@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Gerador de Apólices QA",
+  "description": "Gera dados fictícios e coerentes de apólices para testes de qualidade.",
+  "version": "1.0.0",
+  "minimum_chrome_version": "114",
+  "permissions": ["sidePanel"],
+  "host_permissions": ["https://viacep.com.br/*"],
+  "action": {
+    "default_title": "Abrir gerador de apólices"
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://viacep.com.br; object-src 'none'; base-uri 'none'; frame-src 'none'"
+  }
+}
